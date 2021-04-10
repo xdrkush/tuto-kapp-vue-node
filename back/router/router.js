@@ -16,9 +16,13 @@ router.route('/test')
         res.json({ msg: "backend works" })
     })
 
+// getInfo
+router.route('/getinfo')
+    .get(KappController.getInfo)
+
 // getBlockCount
-router.route('/getblockcount')
-    .get(KappController.getBlockCount)
+router.route('/listunspent')
+    .get(KappController.listUnspent)
 
 /* ************** *
  *  / Router

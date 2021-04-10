@@ -1,22 +1,22 @@
 import axios from 'axios'
 
 const state = {
-  getBlockCount: ""
+  getInfo: {}
 }
 
 const mutations = {
-  setGetBlockCount (state, value) {
-    state.getBlockCount = value
+  setGetInfo (state, value) {
+    state.getInfo = value
   }
 }
 
 const actions = {
-  httpGetBlockCount ({ commit }) {
+  httpGetInfo ({ commit }) {
     axios
-      .get('/getblockcount')
+      .get('/getinfo')
       .then((res) => {
-        console.log('store kapp', res.data)
-        commit('setGetBlockCount', res.data.result.toString())
+        console.log('store kapp', res.data.data)
+        commit('setGetInfo', res.data.data)
       })
   }
 }

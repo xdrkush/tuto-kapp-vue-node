@@ -1,32 +1,42 @@
 // Import Module
-const serve  = require("../../server");
+const SmartChain = require("node-komodo-rpc"); // Module By Gcharang
 
-var request = require("request");
-     
-console.log(serve.config)
-
-// Headers
-const headers = {
-    "content-type": "text/plain;"
+// Config komodo.conf
+const config = {
+    rpchost: "localhost", // to put in the .env
+    rpcport: 7771, // to put in the .env
+    rpcuser: "hsukrd", // to put in the .env
+    rpcpassword: "mon$uperMotDePa$$e" // to put in the .env
 };
 
+// Config Komodo rpc
+const komodo = new SmartChain({ config }); // Module By Gcharang
+const komodoRPC = komodo.rpc();
+
+// List actions
 module.exports = {
-    getBlockCount: (req, res) => {
-        var dataString = `{"jsonrpc":"1.0","id":"curltext","method":"getblockcount","params":[]}`;
-        var options = {
-            url: `http://${serve.config.rpcuser}:${serve.config.rpcpassword}@127.0.0.1:7771/`,
-            method: "POST",
-            headers: headers,
-            body: dataString
-        };
-
-        cb = (error, response, body) => {
-            if (!error && response.statusCode == 200) {
-                const data = JSON.parse(body);
-                res.send(data);
-            }
-        };
-
-        request(options, cb);
+    getInfo: (req, res) => {
+        komodoRPC
+          .getinfo()
+          .then(info => {
+            console.log(info);
+            res.json({ data: info })
+          })
+          .catch(error => {
+            console.log(error);
+            throw new Error(error);
+          });
+    },
+    listUnspent: (req, res) => {
+        komodoRPC
+          .listunspent(6, 9999999, [
+            "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu",
+            "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"
+          ])
+          .then(outs => {
+            console.log(outs);
+            res.json({ data: outs })
+          })
+          .catch(error => console.log(error));
     }
 }

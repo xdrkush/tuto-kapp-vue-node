@@ -1,7 +1,7 @@
 <template>
   <q-page class="text-center">
     <h2> {{ title }} </h2>
-    <p> Block count: {{ getBlockCount }} </p>
+    <p> Block count: {{ getInfo.blocks }} / {{ getInfo.longestchain }} </p>
   </q-page>
 </template>
 
@@ -16,13 +16,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions('kapp', ['httpGetBlockCount'])
+    ...mapActions('kapp', ['httpGetInfo'])
   },
   computed: {
-    ...mapState('kapp', ['getBlockCount'])
+    ...mapState('kapp', ['getInfo'])
   },
   mounted () {
-    this.httpGetBlockCount()
+    this.httpGetInfo()
   }
 }
 </script>
