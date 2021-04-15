@@ -24,6 +24,14 @@ router.route('/getinfo')
 router.route('/listunspent')
     .get(KappController.listUnspent)
 
+// getBlockCount
+router.route('/getwalletinfo')
+    .get(KappController.getWalletInfo)
+
+// create
+router.route('/createwallet')
+    .get(KappController.createwallet)
+
 /* ************** *
  *  / Router
  */

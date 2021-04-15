@@ -1,12 +1,16 @@
 import axios from 'axios'
 
 const state = {
-  getInfo: {}
+  getInfo: {},
+  walletCreated: {}
 }
 
 const mutations = {
   setGetInfo (state, value) {
     state.getInfo = value
+  },
+  setCreateNewWallet (state, value) {
+    state.walletCreated = value
   }
 }
 
@@ -17,6 +21,14 @@ const actions = {
       .then((res) => {
         console.log('store kapp', res.data.data)
         commit('setGetInfo', res.data.data)
+      })
+  },
+  createNewWallet ({ commit }) {
+    axios
+      .get('/createwallet')
+      .then((res) => {
+        console.log('store kapp', res.data.data)
+        commit('setCreateNewWallet', res.data.data)
       })
   }
 }

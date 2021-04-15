@@ -1,12 +1,18 @@
 <template>
-  <q-page class="text-center">
+  <q-page class="text-center q-pa-xl">
     <h2> {{ title }} </h2>
-    <p> Block count: {{ getInfo.blocks }} / {{ getInfo.longestchain }} </p>
+    
+    <!-- getInfo Component -->
+    <getInfo />
+
+    <!-- Create Wallet Component -->
+    <createWallet />
+
   </q-page>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { getInfo, createWallet } from '../components'
 
 export default {
   name: 'PageKapp',
@@ -15,14 +21,8 @@ export default {
       title: 'Komodo App'
     }
   },
-  methods: {
-    ...mapActions('kapp', ['httpGetInfo'])
-  },
-  computed: {
-    ...mapState('kapp', ['getInfo'])
-  },
-  mounted () {
-    this.httpGetInfo()
+  components: {
+    createWallet, getInfo
   }
 }
 </script>
