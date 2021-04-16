@@ -68,5 +68,29 @@ module.exports = {
       console.log(error);
       throw new Error(error);
     });
+  },
+  listwallet: (req, res) => {
+    komodoRPC
+      .listreceivedbyaddress(1, true)
+      .then(info => {
+        console.log(info);
+        res.json({ data: info })
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error(error);
+      });
+  },
+  getPrivateKkey: (req, res) => {
+    komodoRPC.dumpprivkey(req.body.public_key).then(priv => {
+      res.json({
+        data: {
+          private_key: priv
+        }
+      })
+    }).catch(error => {
+      console.log(error);
+      throw new Error(error);
+    });
   }
 }

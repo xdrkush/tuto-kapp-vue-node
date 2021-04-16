@@ -32,6 +32,15 @@ router.route('/getwalletinfo')
 router.route('/createwallet')
     .get(KappController.createwallet)
 
+// listWallet
+router.route('/listwallet')
+    .get(KappController.listwallet)
+
+// listWallet
+router.route('/getprivatekey')
+    .post(KappController.getPrivateKkey)
+
+
 /* ************** *
  *  / Router
  */
