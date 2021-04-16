@@ -1,6 +1,11 @@
 # KApp
 
+## I m candidate to Notary Node Season 5
+  - My proposal: https://github.com/KomodoPlatform/NotaryNodes/tree/master/season5/candidates/drkush
+
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init2.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init3.png)
 
 This project is create with:
   - Quasar (VueJS, PWA, ...)
@@ -40,3 +45,8 @@ npm i
 nodemon server.js
 ```
 
+## Donation
+  - KMD: RCfrZUwfprGcNAgjyyBLg75aKttNL6mtCB
+  - ARRR:
+  - LTC: 
+  - BTC:

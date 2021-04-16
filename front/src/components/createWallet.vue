@@ -32,12 +32,12 @@ export default {
   methods: {
     newWallet () {
       console.log('create wallet')
-      this.createNewWallet()
+      this.httpCreateNewWallet()
     },
-    ...mapActions("kapp", ["createNewWallet"])
+    ...mapActions("kapp", ["httpCreateNewWallet"])
   },
   computed: {
-    ...mapState("kapp", ["walletCreated"]),
+    ...mapState("kapp", ["walletCreated"])
   }
 };
 </script>
