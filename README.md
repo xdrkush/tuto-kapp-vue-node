@@ -1,17 +1,22 @@
 # KApp
 
-## I m candidate to Notary Node Season 5
+## I m candidate to Notary Node Season 5 <3
   - My proposal: https://github.com/KomodoPlatform/NotaryNodes/tree/master/season5/candidates/drkush
 
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init2.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init3.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init4.png)
 
 This project is create with:
   - Quasar (VueJS, PWA, ...)
   - node-komodo-rpc By Gcharang
   - Node Js (express, ...)
   - Komodo (Blockchain)
+
+This app is utils for administration komodod in local (only) !! (graphic komodo-cli)
+
+(install possible on Desktop (linux, windows, mac) and web browser)
 
 ## ( in progress )
 
@@ -47,6 +52,6 @@ nodemon server.js
 
 ## Donation
   - KMD: RCfrZUwfprGcNAgjyyBLg75aKttNL6mtCB
-  - ARRR:
+  - ARRR: 
   - LTC: 
   - BTC:

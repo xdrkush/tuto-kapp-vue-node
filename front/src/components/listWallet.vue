@@ -1,17 +1,21 @@
 <template>
-  <div class='q-mt-md'>
+  <div class="q-mt-md">
     <q-table
-      class='my-sticky-virtscroll-table'
+      class="my-sticky-virtscroll-table"
       virtual-scroll
-      :rows-per-page-options='[0]'
-      :virtual-scroll-sticky-size-start='48'
-      row-key='address'
-      title='List Wallet'
-      :data='this.listWallet'
-      :columns='columns'
+      :rows-per-page-options="[0]"
+      :virtual-scroll-sticky-size-start="48"
+      row-key="address"
+      title="List Wallet"
+      :data="this.listWallet"
+      :columns="columns"
     >
-      <template v-slot:body='props'>
-        <q-tr :props='props'>
+      <template v-slot:top-right>
+        <p>Wallet: {{ listWalletLength }}</p>
+      </template>
+
+      <template v-slot:body="props">
+        <q-tr :props="props">
           <q-td auto>
             <p>{{ props.row.account }}</p>
           </q-td>
@@ -30,61 +34,162 @@
 
           <q-td auto-width>
             <q-btn
-              size='sm'
-              color='primary'
+              size="sm"
+              color="primary"
               round
               dense
-              @click='openModal(props.row)'
-              icon='visibility'
+              @click="openModal(props.row)"
+              icon="visibility"
             />
           </q-td>
         </q-tr>
       </template>
     </q-table>
 
-    <q-dialog v-model='medium' persistent>
-      <q-card class='text-center' style='width: 700px; max-width: 80vw'>
-        <q-card-section class='row bg-primary text-white'>
-          <div class='text-h6 q-mt-none col-6'>Account: {{ modal.account }}</div>
-          <div class='text-h6 q-mt-none col-6'>Balance: {{ modal.amount }}</div>
+    <q-dialog v-model="medium" persistent>
+      <q-card
+        class="text-center"
+        style="width: 700px; max-width: 80vw; min-height: 65vh"
+      >
+        <q-card-section class="row bg-primary text-white">
+          <div class="text-h6 q-mt-none col-6">
+            Account: {{ modal.account }}
+          </div>
+          <div class="text-h6 q-mt-none col-6">Balance: {{ modal.amount }}</div>
         </q-card-section>
 
         <q-tabs
-          v-model='tab'
+          v-model="tab"
           dense
-          class='text-grey'
-          active-color='primary'
-          indicator-color='primary'
-          align='justify'
+          class="text-grey"
+          active-color="primary"
+          indicator-color="primary"
+          align="justify"
           narrow-indicator
         >
-          <q-tab name='info' label='Infos' />
-          <q-tab name='private' label='Private' />
+          <q-tab name="info" label="Infos" />
+          <q-tab name="tx" label="Tx" />
+          <q-tab name="private" label="Private" />
         </q-tabs>
 
         <q-separator />
 
-        <q-tab-panels v-model='tab' animated>
-          <q-tab-panel name='info'>
-            <q-card-section class='q-pt-none'>
-              <p><strong>Address_public:</strong> {{ modal.address_pub }}</p>
-              <p>
-                <strong>Rawconfirmations:</strong> {{ modal.rawconfirmations }}
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel name="info" class="q-pa-none">
+            <q-card-section class="row bg-primary text-white q-pt-xs q-mt-xs">
+              <p class="text-h6 q-mt-none col-12">
+                Public_key: {{ modal.address_pub }}
               </p>
-              <p><strong>Confirmations:</strong> {{ modal.confirmations }}</p>
+              <p class="q-my-none col-6">
+                rawconfirmations: {{ modal.rawconfirmations }}
+              </p>
+              <p class="q-my-none col-6">
+                confirmations: {{ modal.confirmations }}
+              </p>
+            </q-card-section>
+
+            <q-card-section>
+              <q-form
+                @submit="onSubmitSetAccount"
+                @reset="onReset"
+              >
+                <q-input
+                  filled
+                  v-model="setAccount.account"
+                  label="Edit name of account:"
+                  lazy-rules
+                  :rules="[
+                    (val) => (val && val.length > 0) || 'Please type something',
+                  ]"
+                />
+                <q-toggle
+                  v-model="accept"
+                  label="I accept the license and terms"
+                />
+                <div>
+                  <q-btn label="Submit" type="submit" color="primary" />
+                  <q-btn
+                    label="Reset"
+                    type="reset"
+                    color="primary"
+                    flat
+                    class="q-ml-sm"
+                  />
+                </div>
+              </q-form>
             </q-card-section>
           </q-tab-panel>
 
-          <q-tab-panel name='private'>
-            <q-card-section class='q-pt-none'>
-              <q-btn rounded class='text-primary' label='Get Private Key' @click='getPrivateKey(modal.address_pub)'/>
-              <p class="text-primary q-mt-md"><strong>{{ privateKeyRecieve.private_key }}</strong></p>
+          <q-tab-panel name="tx" class="border-bottom">
+            <q-card-section class="q-pt-none">
+              <q-form @submit="onSubmitTx" @reset="onReset" class="q-gutter-md">
+                <q-input
+                  filled
+                  disable
+                  v-model="modal.account"
+                  label="From:"
+                  lazy-rules
+                  :rules="[
+                    (val) => (val && val.length > 0) || 'Please type something',
+                  ]"
+                />
+                <q-input
+                  filled
+                  v-model="tx.to"
+                  label="To:"
+                  lazy-rules
+                  :rules="[
+                    (val) => (val && val.length > 0) || 'Please type something',
+                  ]"
+                />
+                <q-input
+                  filled
+                  type="number"
+                  v-model="tx.amount"
+                  label="Amount:"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val !== null && val !== '') || 'Please type your age',
+                    (val) => (val > 0 && val < 100) || 'Please type a real age',
+                  ]"
+                  step="0.001"
+                />
+                <q-toggle
+                  v-model="accept"
+                  label="I accept the license and terms"
+                />
+                <div>
+                  <q-btn label="Submit" type="submit" color="primary" />
+                  <q-btn
+                    label="Reset"
+                    type="reset"
+                    color="primary"
+                    flat
+                    class="q-ml-sm"
+                  />
+                </div>
+              </q-form>
+            </q-card-section>
+          </q-tab-panel>
+
+          <q-tab-panel name="private">
+            <q-card-section class="q-pt-none">
+              <q-btn
+                rounded
+                class="text-primary"
+                label="Get Private Key"
+                @click="getPrivateKey(modal.address_pub)"
+              />
+              <p class="text-primary q-mt-md">
+                <strong>{{ privateKeyRecieve.private_key }}</strong>
+              </p>
             </q-card-section>
           </q-tab-panel>
         </q-tab-panels>
 
-        <q-card-actions align='right' class='bg-white text-teal'>
-          <q-btn flat label='OK' v-close-popup @click='closeModal()' />
+        <q-card-actions align="center" class="bg-white text-teal">
+          <q-btn flat label="Close" v-close-popup @click="closeModal()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -92,62 +197,73 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
-  name: 'ListWallet',
+  name: "ListWallet",
   data() {
     return {
       medium: false,
+      accept: false,
       modal: {
-        account: '',
-        address_pub: '',
-        addres_priv: '',
-        amount: '',
+        account: "",
+        address_pub: "",
+        addres_priv: "",
+        amount: "",
+        rawconfirmations: "",
+        confirmations: ""
       },
-      tab: 'info',
+      tx: {
+        from: "",
+        to: "",
+        amount: "",
+      },
+      setAccount: {
+        account: "",
+      },
+      tab: "info",
       columns: [
         {
-          name: 'account',
+          name: "account",
           required: true,
-          label: 'Account',
-          align: 'left',
+          label: "Account",
+          align: "left",
           field: (row) => row.account,
           format: (val) => `${val}`,
           sortable: true,
         },
         {
-          name: 'address',
-          label: 'Address',
-          align: 'left',
-          field: 'address',
+          name: "address",
+          label: "Address",
+          align: "left",
+          field: "address",
           sortable: true,
         },
         {
-          name: 'rawconfirmations',
-          align: 'left',
-          label: 'rawconfirmations',
-          field: 'rawconfirmations',
+          name: "rawconfirmations",
+          align: "left",
+          label: "rawconfirmations",
+          field: "rawconfirmations",
           sortable: true,
         },
         {
-          name: 'confirmations',
-          align: 'left',
-          label: 'confirmations',
-          field: 'confirmations',
+          name: "confirmations",
+          align: "left",
+          label: "confirmations",
+          field: "confirmations",
           sortable: true,
         },
         {
-          name: 'amount',
-          align: 'left',
-          label: 'Amount',
-          field: 'amount',
+          name: "amount",
+          align: "left",
+          label: "Amount",
+          field: "amount",
           sortable: true,
         },
         {
-          name: 'action',
-          align: 'left',
-          label: 'Action',
+          name: "action",
+          align: "left",
+          label: "Action",
         },
       ],
     };
@@ -158,26 +274,90 @@ export default {
       this.modal.account = data.account;
       this.modal.address_pub = data.address;
       this.modal.amount = data.amount;
+      this.modal.rawconfirmations = data.rawconfirmations;
+      this.modal.confirmations = data.confirmations;
     },
     closeModal() {
       this.medium = false;
-      this.modal.account = '';
-      this.modal.address_pub = '';
-      this.modal.amount = '';
-      this.setPrivateKey('')
+      this.modal.account = "";
+      this.modal.address_pub = "";
+      this.modal.amount = "";
+      this.tx.to = "";
+      this.tx.mount = "";
+      this.tx.accept = false;
+      this.setPrivateKey("");
     },
     getPrivateKey(publickey) {
       this.httpGetPrivateKey(publickey);
     },
-    ...mapActions('kapp', ['httpGetListWallet', 'httpGetPrivateKey']),
-    ...mapMutations('kapp', ['setPrivateKey'])
+    onSubmitTx() {
+      if (this.accept !== true) {
+        this.$q.notify({
+          color: "red-5",
+          textColor: "white",
+          icon: "warning",
+          message: "You need to accept the license and terms first",
+        });
+      } else {
+        const form = {
+          accountFrom: this.modal.account,
+          to: this.tx.to,
+          amount: this.tx.amount,
+        };
+        this.$q.notify({
+          color: "primary",
+          textColor: "white",
+          icon: "cloud_done",
+          message: "Submitted",
+        });
+        this.httpSendFromTx(form);
+      }
+    },
+    onSubmitSetAccount() {
+      if (this.accept !== true) {
+        this.$q.notify({
+          color: "red-5",
+          textColor: "white",
+          icon: "warning",
+          message: "You need to accept the license and terms first",
+        });
+      } else {
+        const form = {
+          address_pub: this.modal.address_pub,
+          account: this.setAccount.account,
+        };
+        this.$q.notify({
+          color: "primary",
+          textColor: "white",
+          icon: "cloud_done",
+          message: "Submitted",
+        });
+        this.httpSetAccount(form);
+      }
+    },
+    onReset() {
+      this.tx.amount = null;
+      this.tx.from = null;
+      this.tx.to = null;
+      this.accept = false;
+    },
+    ...mapActions("kapp", [
+      "httpGetListWallet",
+      "httpGetPrivateKey",
+      "httpSendFromTx",
+      "httpSetAccount",
+    ]),
+    ...mapMutations("kapp", ["setPrivateKey"]),
   },
   computed: {
-    ...mapState('kapp', ['listWallet', 'privateKey']),
-    ...mapGetters('kapp', ['privateKeyRecieve'])
+    listWalletLength: function () {
+      return this.listWallet.length;
+    },
+    ...mapState("kapp", ["listWallet", "privateKey"]),
+    ...mapGetters("kapp", ["privateKeyRecieve"]),
   },
   mounted() {
-    this.httpGetListWallet()
-  }
+    this.httpGetListWallet();
+  },
 };
 </script>

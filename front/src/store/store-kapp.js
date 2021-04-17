@@ -27,7 +27,7 @@ const actions = {
     axios
       .get('/getinfo')
       .then((res) => {
-        console.log('store kapp', res.data.data)
+        // console.log('store kapp', res.data.data)
         commit('setGetInfo', res.data.data)
       })
       .catch(error => {
@@ -39,7 +39,7 @@ const actions = {
     axios
       .get('/createwallet')
       .then((res) => {
-        console.log('store kapp', res.data.data)
+        // console.log('store kapp', res.data.data)
         commit('setCreateNewWallet', res.data.data)
       })
       .catch(error => {
@@ -51,7 +51,7 @@ const actions = {
     axios
       .get('/listwallet')
       .then((res) => {
-        console.log('list wallet:', res.data.data)
+        // console.log('list wallet:', res.data.data)
         commit('setListWallet', res.data.data)
       })
       .catch(error => {
@@ -67,6 +67,39 @@ const actions = {
       .then((res) => {
         // console.log('privatekey:', res.data.data)
         commit('setPrivateKey', res.data.data)
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error(error);
+      });
+  },
+  // httpSendToTx ({ commit }, payload) {
+  //   axios
+  //     .post('/sendtotx', payload)
+  //     .then((res) => {
+  //       console.log('resSendToTx:', res.data.data)
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       throw new Error(error);
+  //     });
+  // },
+  httpSendFromTx ({ commit }, payload) {
+    axios
+      .post('/sendfromtx', payload)
+      .then((res) => {
+        console.log('resSendFromTx:', res.data.data)
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error(error);
+      });
+  },
+  httpSetAccount ({ commit }, payload) {
+    axios
+      .post('/setaccount', payload)
+      .then((res) => {
+        console.log('resSetAccount:', res.data.data)
       })
       .catch(error => {
         console.log(error);

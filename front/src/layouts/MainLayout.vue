@@ -64,9 +64,9 @@ const linksData = [
   },
   {
     title: 'Github',
-    caption: 'github.com/quasarframework',
+    caption: 'tuto-kapp-vue-node',
     icon: 'school',
-    link: 'https://github.com/quasarframework'
+    link: 'https://github.com/xdrkush/tuto-kapp-vue-node'
   }
 ];
 
