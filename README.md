@@ -3,10 +3,10 @@
 ## I m candidate to Notary Node Season 5 <3
   - My proposal: https://github.com/KomodoPlatform/NotaryNodes/tree/master/season5/candidates/drkush
 
-![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init.png)
-![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init2.png)
-![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init3.png)
-![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/init4.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/home.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/info.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/tx.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/private.png)
 
 This project is create with:
   - Quasar (VueJS, PWA, ...)
