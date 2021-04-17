@@ -92,5 +92,53 @@ module.exports = {
       console.log(error);
       throw new Error(error);
     });
+  },
+  // sendToTx: (req, res) => {
+  //   console.log(req.body)
+  //   komodoRPC.sendtoaddress(req.body.to, req.body.amount).then(tx => {
+  //     console.log(tx)
+  //     res.json({
+  //       data: {
+  //         success: "Success !"
+  //       }
+  //     })
+  //   }).catch(error => {
+  //     console.log(error);
+  //     throw new Error(error);
+  //   });
+  // },
+  sendFromTx: (req, res) => {
+    komodoRPC.sendfrom(req.body.accountFrom, req.body.to, req.body.amount).then(tx => {
+      console.log(tx)
+      res.json({
+        data: {
+          success: "Success !"
+        }
+      })
+    }).catch(error => {
+      console.log(error);
+      throw new Error(error);
+    });
+  },
+  setAccount: (req, res) => {
+    komodoRPC.setaccount(req.body.address_pub, req.body.account).then(set => {
+      res.json({
+        data: {
+          success: "Success !"
+        }
+      })
+    }).catch(error => {
+      console.log(error);
+      throw new Error(error);
+    });
+  },
+  startPow: (req, res) => {
+    console.log('Start mining Pow')
+  },
+  startPos: (req, res) => {
+    console.log('Start mining Pos')
+  },
+  stopMining: (req, res) => {
+    console.log('Stop mining')
   }
 }

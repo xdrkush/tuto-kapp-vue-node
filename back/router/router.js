@@ -36,10 +36,33 @@ router.route('/createwallet')
 router.route('/listwallet')
     .get(KappController.listwallet)
 
-// listWallet
+// getPrivateKey
 router.route('/getprivatekey')
     .post(KappController.getPrivateKkey)
 
+// sendToTx
+// router.route('/sendtotx')
+//     .post(KappController.sendToTx)
+
+// sendFromTx
+router.route('/sendfromtx')
+    .post(KappController.sendFromTx)
+
+// setAccount
+router.route('/setaccount')
+    .post(KappController.setAccount)
+
+// startPow
+router.route('/startpow')
+    .post(KappController.startPow)
+
+// startPos
+router.route('/startpos')
+    .post(KappController.startPos)
+
+// stopMining
+router.route('/stopmining')
+    .post(KappController.stopMining)
 
 /* ************** *
  *  / Router
