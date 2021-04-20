@@ -60,9 +60,17 @@ router.route('/startpow')
 router.route('/startpos')
     .post(KappController.startPos)
 
+// miningInfo
+router.route('/mininginfo')
+    .get(KappController.miningInfo)
+
 // stopMining
 router.route('/stopmining')
     .post(KappController.stopMining)
+
+// getAddressBalance
+router.route('/getaddressbalance')
+    .post(KappController.getAddressBalance)
 
 /* ************** *
  *  / Router

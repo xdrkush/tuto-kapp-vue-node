@@ -29,7 +29,7 @@
         <q-separator vertical />
 
         <q-card-section class="col-6">
-          <p>Balance: {{ getInfo.balance }} {{ getInfo.name }}</p>
+          <p>Wallet Balance: {{ getInfo.balance }} {{ getInfo.name }}</p>
         </q-card-section>
       </q-card-section>
     </q-card>

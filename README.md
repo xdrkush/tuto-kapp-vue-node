@@ -4,7 +4,7 @@
   - My proposal: https://github.com/KomodoPlatform/NotaryNodes/tree/master/season5/candidates/drkush
 
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/home.png)
-![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/info.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/info1.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/tx.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/private.png)
 
@@ -53,5 +53,5 @@ nodemon server.js
 ## Donation
   - KMD: RCfrZUwfprGcNAgjyyBLg75aKttNL6mtCB
   - ARRR: 
-  - LTC: 
-  - BTC:
+  - LTC: LNcckBNDJgi6Yy1hgwBWrbp8mqo3mJiVxE
+  - BTC: 14PfUy4PE2U3JAKYWoCDaakNZdRme8iW6b

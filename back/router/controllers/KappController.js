@@ -19,7 +19,7 @@ module.exports = {
     komodoRPC
       .getinfo()
       .then(info => {
-        console.log(info);
+        // console.log(info);
         res.json({ data: info })
       })
       .catch(error => {
@@ -43,7 +43,7 @@ module.exports = {
     komodoRPC
       .getwalletinfo()
       .then(info => {
-        console.log(info);
+        // console.log(info);
         res.json({ data: info })
       })
       .catch(error => {
@@ -73,7 +73,7 @@ module.exports = {
     komodoRPC
       .listreceivedbyaddress(1, true)
       .then(info => {
-        console.log(info);
+        // console.log(info);
         res.json({ data: info })
       })
       .catch(error => {
@@ -112,7 +112,8 @@ module.exports = {
       console.log(tx)
       res.json({
         data: {
-          success: "Success !"
+          success: "Success ! Your transaction_id.",
+          txId: tx
         }
       })
     }).catch(error => {
@@ -138,7 +139,33 @@ module.exports = {
   startPos: (req, res) => {
     console.log('Start mining Pos')
   },
+  miningInfo: (req, res) => {
+    komodoRPC
+      .getmininginfo()
+      .then(info => {
+        // console.log(info)
+        res.json({
+          data: info
+        })
+      }).catch(error => {
+        console.log(error);
+        throw new Error(error);
+      });
+  },
   stopMining: (req, res) => {
     console.log('Stop mining')
-  }
+  },
+  getAddressBalance: (req, res) => {
+    komodoRPC
+      .getaddressbalance({addresses: [req.body.address]})
+      .then(bal => {
+        console.log(bal)
+        res.json({
+          data: bal
+        })
+      }).catch(error => {
+        console.log(error);
+        throw new Error(error);
+      });
+  },
 }

@@ -6,7 +6,7 @@
       :rows-per-page-options="[0]"
       :virtual-scroll-sticky-size-start="48"
       row-key="address"
-      title="List Wallet"
+      title="List Wallet (amount is not balance)"
       :data="this.listWallet"
       :columns="columns"
     >
@@ -55,7 +55,7 @@
           <div class="text-h6 q-mt-none col-6">
             Account: {{ modal.account }}
           </div>
-          <div class="text-h6 q-mt-none col-6">Balance: {{ modal.amount }}</div>
+          <div class="text-h6 q-mt-none col-6">Balance: {{ modalBalance.balance }}</div>
         </q-card-section>
 
         <q-tabs
@@ -77,9 +77,20 @@
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="info" class="q-pa-none">
             <q-card-section class="row bg-primary text-white q-pt-xs q-mt-xs">
-              <p class="text-h6 q-mt-none col-12">
-                Public_key: {{ modal.address_pub }}
-              </p>
+              <q-item
+                clickable
+                tag="a"
+                target="blank"
+                class="col-12"
+                :href="'https://kmdexplorer.io/address/' + modal.address_pub"
+              >
+                <q-item-section>
+                  <p class="text-h6 q-my-none">
+                    Public_key: {{ modal.address_pub }}
+                  </p>
+                </q-item-section>
+              </q-item>
+
               <p class="q-my-none col-6">
                 rawconfirmations: {{ modal.rawconfirmations }}
               </p>
@@ -89,10 +100,7 @@
             </q-card-section>
 
             <q-card-section>
-              <q-form
-                @submit="onSubmitSetAccount"
-                @reset="onReset"
-              >
+              <q-form @submit="onSubmitSetAccount" @reset="onReset">
                 <q-input
                   filled
                   v-model="setAccount.account"
@@ -102,21 +110,46 @@
                     (val) => (val && val.length > 0) || 'Please type something',
                   ]"
                 />
-                <q-toggle
-                  v-model="accept"
-                  label="I accept the license and terms"
-                />
-                <div>
-                  <q-btn label="Submit" type="submit" color="primary" />
-                  <q-btn
-                    label="Reset"
-                    type="reset"
-                    color="primary"
-                    flat
-                    class="q-ml-sm"
-                  />
+                <div class="row">
+                  <div class="col-6 text-center">
+                    <q-toggle
+                      v-model="accept"
+                      label="I accept the license and terms"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <q-btn label="Submit" type="submit" color="primary" />
+                    <q-btn
+                      label="Reset"
+                      type="reset"
+                      color="primary"
+                      flat
+                      class="q-ml-sm"
+                    />
+                  </div>
                 </div>
               </q-form>
+            </q-card-section>
+
+            <q-card-section>
+              <p class="text-h6 text-primary"><u>History list tx:</u></p>
+              <q-list bordered>
+                <q-item
+                  clickable
+                  tag="a"
+                  target="blank"
+                  :href="'https://kmdexplorer.io/tx/' + tx"
+                  v-ripple
+                  :key="tx"
+                  v-for="tx in modal.txIds"
+                >
+                  <q-item-section avatar>
+                    <q-icon color="primary" name="help" />
+                  </q-item-section>
+
+                  <q-item-section>{{ tx }}</q-item-section>
+                </q-item>
+              </q-list>
             </q-card-section>
           </q-tab-panel>
 
@@ -171,6 +204,12 @@
                 </div>
               </q-form>
             </q-card-section>
+
+            <q-card-section class="q-pt-none" v-if="getTxId.txId">
+              <p class="text-primary q-mt-md">
+                <strong><u>Tx_id:</u> {{ getTxId.txId }}</strong>
+              </p>
+            </q-card-section>
           </q-tab-panel>
 
           <q-tab-panel name="private">
@@ -211,7 +250,8 @@ export default {
         addres_priv: "",
         amount: "",
         rawconfirmations: "",
-        confirmations: ""
+        confirmations: "",
+        txIds: "",
       },
       tx: {
         from: "",
@@ -227,42 +267,42 @@ export default {
           name: "account",
           required: true,
           label: "Account",
-          align: "left",
-          field: (row) => row.account,
+          align: "center",
+          field: (row) => row.account,  
           format: (val) => `${val}`,
           sortable: true,
         },
         {
           name: "address",
           label: "Address",
-          align: "left",
+          align: "center",
           field: "address",
           sortable: true,
         },
         {
           name: "rawconfirmations",
-          align: "left",
+          align: "center",
           label: "rawconfirmations",
           field: "rawconfirmations",
           sortable: true,
         },
         {
           name: "confirmations",
-          align: "left",
+          align: "center",
           label: "confirmations",
           field: "confirmations",
           sortable: true,
         },
         {
           name: "amount",
-          align: "left",
+          align: "center",
           label: "Amount",
           field: "amount",
           sortable: true,
         },
         {
           name: "action",
-          align: "left",
+          align: "center",
           label: "Action",
         },
       ],
@@ -270,12 +310,15 @@ export default {
   },
   methods: {
     openModal(data) {
+      console.log(data);
       this.medium = true;
       this.modal.account = data.account;
       this.modal.address_pub = data.address;
-      this.modal.amount = data.amount;
+      // this.modal.amount = data.amount;
       this.modal.rawconfirmations = data.rawconfirmations;
       this.modal.confirmations = data.confirmations;
+      this.modal.txIds = data.txids;
+      this.httpGetBalance({address: data.address})
     },
     closeModal() {
       this.medium = false;
@@ -286,6 +329,8 @@ export default {
       this.tx.mount = "";
       this.tx.accept = false;
       this.setPrivateKey("");
+      this.setTxId({});
+      this.setModalBalance({});
     },
     getPrivateKey(publickey) {
       this.httpGetPrivateKey(publickey);
@@ -346,18 +391,20 @@ export default {
       "httpGetPrivateKey",
       "httpSendFromTx",
       "httpSetAccount",
+      "httpGetBalance"
     ]),
-    ...mapMutations("kapp", ["setPrivateKey"]),
+    ...mapMutations("kapp", ["setPrivateKey", "setTxId", "setModalBalance"]),
   },
   computed: {
     listWalletLength: function () {
       return this.listWallet.length;
     },
-    ...mapState("kapp", ["listWallet", "privateKey"]),
-    ...mapGetters("kapp", ["privateKeyRecieve"]),
+    ...mapState("kapp", ["listWallet", "privateKey", "txId", "modalBalance"]),
+    ...mapGetters("kapp", ["privateKeyRecieve", "getTxId"]),
   },
   mounted() {
     this.httpGetListWallet();
+    console.log(this.parseBalance)
   },
 };
 </script>

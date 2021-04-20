@@ -4,7 +4,10 @@ const state = {
   getInfo: {},
   walletCreated: {},
   listWallet: [],
-  privateKey: ''
+  privateKey: '',
+  txId: {},
+  miningInfo: {},
+  modalBalance: {}
 }
 
 const mutations = {
@@ -19,7 +22,16 @@ const mutations = {
   },
   setPrivateKey (state, value) {
     state.privateKey = value
-  }
+  },
+  setTxId (state, value) {
+    state.txId = value
+  },
+  setMiningInfo (state, value) {
+    state.miningInfo = value
+  },
+  setModalBalance (state, value) {
+    state.modalBalance = value
+  },
 }
 
 const actions = {
@@ -89,6 +101,7 @@ const actions = {
       .post('/sendfromtx', payload)
       .then((res) => {
         console.log('resSendFromTx:', res.data.data)
+        commit('setTxId', res.data.data)
       })
       .catch(error => {
         console.log(error);
@@ -105,12 +118,43 @@ const actions = {
         console.log(error);
         throw new Error(error);
       });
+  },
+  httpMiningInfo ({ commit }, payload) {
+    axios
+      .get('/miningInfo')
+      .then((res) => {
+        console.log('resMiningInfo:', res.data.data)
+        commit('setMiningInfo', res.data.data)
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error(error);
+      });
+  },
+  httpGetBalance ({ commit }, payload) {
+    axios
+      .post('/getaddressbalance', payload)
+      .then((res) => {
+        console.log('resGetBalance:', res.data.data)
+        const parseBalance = {
+          balance: parseFloat(res.data.data.balance / 100000000), 
+          recieve: parseFloat(res.data.data.recieve / 100000000)
+        }
+        commit('setModalBalance', parseBalance)
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error(error);
+      });
   }
 }
 
 const getters = {
   privateKeyRecieve: state => {
     return state.privateKey
+  },
+  getTxId: state => {
+    return state.txId
   }
 }
 

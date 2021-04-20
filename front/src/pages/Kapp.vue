@@ -11,11 +11,14 @@
     <!-- getListWallet -->
     <listWallet/>
 
+    <!-- getMining Info -->
+    <mining/>
+
   </q-page>
 </template>
 
 <script>
-import { getInfo, createWallet, listWallet } from '../components'
+import { getInfo, createWallet, listWallet, mining } from '../components'
 
 export default {
   name: 'PageKapp',
@@ -25,7 +28,7 @@ export default {
     }
   },
   components: {
-    createWallet, getInfo, listWallet
+    createWallet, getInfo, listWallet, mining
   }
 }
 </script>

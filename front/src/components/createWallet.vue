@@ -1,6 +1,6 @@
 <template>
   <div class="q-mt-md">
-    <q-btn color="secondary" glossy label="Create new wallet" @click="newWallet()"/>
+    <q-btn color="secondary" glossy label="Create new address" @click="newWallet()"/>
     <q-list bordered separator class="q-mt-md">
 
       <q-item clickable v-ripple>
