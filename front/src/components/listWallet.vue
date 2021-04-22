@@ -138,7 +138,7 @@
                   clickable
                   tag="a"
                   target="blank"
-                  :href="'https://kmdexplorer.io/tx/' + tx"
+                  :href="'https://morty.explorer.dexstats.info/tx/' + tx"
                   v-ripple
                   :key="tx"
                   v-for="tx in modal.txIds"

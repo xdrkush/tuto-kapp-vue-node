@@ -11,6 +11,7 @@
 ## For the futures
 (comptatible with other chain)
 
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/choose.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/morty1.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/morty2.png)
 
@@ -27,7 +28,6 @@ This app is utils for administration komodod in local (only) !! (graphic komodo-
 ## ( in progress )
 
 ## Pre-requisite
-
   - Node JS V 10.16.0 with npm or yarn
   - Quasar Js ( https://quasar.dev/quasar-cli/installation )
   - komodod ( https://github.com/KomodoPlatform/komodo )

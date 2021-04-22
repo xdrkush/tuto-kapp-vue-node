@@ -146,6 +146,18 @@ const actions = {
         console.log(error);
         throw new Error(error);
       });
+  },
+  httpChooseChain ({ commit }, payload) {
+    console.log(payload)
+    axios
+      .post('/choosechain', payload)
+      .then((res) => {
+        console.log('resChooseChain:', res.data)
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error(error);
+      });
   }
 }
 

@@ -4,7 +4,8 @@ const
     router = express.Router();
 
 // Controllers
-const KappController = require('./controllers/KappController');
+const KappController = require('./controllers/KappController'),
+    ChooseChainController = require('./controllers/ChooseChainController');
 
 /*
  *     Router
@@ -71,6 +72,10 @@ router.route('/stopmining')
 // getAddressBalance
 router.route('/getaddressbalance')
     .post(KappController.getAddressBalance)
+
+// getAddressBalance
+router.route('/choosechain')
+    .post(ChooseChainController.choose)
 
 /* ************** *
  *  / Router
