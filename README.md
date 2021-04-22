@@ -8,6 +8,12 @@
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/tx.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/private.png)
 
+## For the futures
+(comptatible with other chain)
+
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/morty1.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/morty2.png)
+
 This project is create with:
   - Quasar (VueJS, PWA, ...)
   - node-komodo-rpc By Gcharang
