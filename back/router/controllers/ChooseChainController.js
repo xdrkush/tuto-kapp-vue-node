@@ -1,7 +1,7 @@
 // Import Module
 const SmartChain = require("node-komodo-rpc"); // Module By Gcharang
 
-// Config komodo.conf
+// Config 
 let config = {};
 
 // Config komodo.conf
@@ -15,7 +15,7 @@ const configKMD = {
   conffile: "/home/hsuk/.komodo/komodo.conf"
 };
 
-// Config komodo.conf
+// Config MORTY.conf
 const configMORTY = {
   rpchost: "localhost", // to put in the .env
   rpcport: 16347, // to put in the .env
@@ -26,31 +26,30 @@ const configMORTY = {
   conffile: "/home/hsuk/.komodo/MORTY/MORTY.conf"
 };
 
+
+// Default
 config = configKMD
 
-console.log('config chain: ', config)
-
-// List actions
+// Choose chain
 exports.choose = (req, res) => {
-  choose(req.body)
-  res.json({ success: 'Its ok !' })
+  chooseFn(req.body)
+  res.json({ success: 'Change chain !' })
 }
 
-function choose(choose) {
-  if (choose.KOMODO === '') {
-    console.log('Choose Komodo !!')
-    config = configKMD
+// Edit chain
+function chooseFn(choose) {
+  if (choose) {
+    if (choose.KOMODO === '') {
+      console.log('Choose Komodo !!')
+      config = configKMD
+    }
+    if (choose.MORTY === '') {
+      console.log('Choose Morty !!')
+      config = configMORTY
+    }
   }
-  if (choose.MORTY === '') {
-    console.log('Choose Morty !!')
-    config = configMORTY
-  }
+  let komodo = new SmartChain(config);
+  return komodo.rpc();
 }
 
-// Config Komodo rpc
-const komodo = new SmartChain(config); // Module By Gcharang
-const komodoRPC = komodo.rpc();
-
-console.log(komodoRPC)
-
-exports.komodoRPC = komodoRPC
+exports.komodoRPC = chooseFn

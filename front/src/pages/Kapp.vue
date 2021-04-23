@@ -59,6 +59,7 @@ export default {
   methods: {
     onSubmitSetChain () {
       this.httpChooseChain(this.chain)
+      this.$router.go(0)
     },
     ...mapActions('kapp', ['httpChooseChain'])
   }

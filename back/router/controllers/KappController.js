@@ -1,18 +1,19 @@
-const komodoRPC = require('./ChooseChainController').komodoRPC
 
-// console.log(komodoRPC.getinfo()
-//   .then(info => {
-//     console.log(info);
-//   })
-//   .catch(error => {
-//     console.log(error);
-//     throw new Error(error);
-//   })
+// Default chain
+// console.log(
+//   require('./ChooseChainController').komodoRPC().getinfo()
+//     .then(info => {
+//       console.log('Check chain: ', info.name);
+//     })
+//     .catch(error => {
+//       console.log(error);
+//       throw new Error(error);
+//     })
 // )
 
 // List actions
 exports.getInfo = (req, res) => {
-  komodoRPC
+  require('./ChooseChainController').komodoRPC()
     .getinfo()
     .then(info => {
       // console.log(info);
@@ -25,7 +26,7 @@ exports.getInfo = (req, res) => {
 }
 
 exports.listUnspent = (req, res) => {
-  komodoRPC
+  require('./ChooseChainController').komodoRPC()
     .listunspent(6, 9999999, [
       "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu",
       "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"
@@ -38,7 +39,7 @@ exports.listUnspent = (req, res) => {
 }
 
 exports.getWalletInfo = (req, res) => {
-  komodoRPC
+  require('./ChooseChainController').komodoRPC()
     .getwalletinfo()
     .then(info => {
       // console.log(info);
@@ -51,8 +52,8 @@ exports.getWalletInfo = (req, res) => {
 }
 
 exports.createwallet = (req, res) => {
-  komodoRPC.getnewaddress().then(pub => {
-    komodoRPC.dumpprivkey(pub).then(priv => {
+  require('./ChooseChainController').komodoRPC().getnewaddress().then(pub => {
+    require('./ChooseChainController').komodoRPC().dumpprivkey(pub).then(priv => {
       res.json({
         data: {
           public_key: pub,
@@ -70,7 +71,7 @@ exports.createwallet = (req, res) => {
 }
 
 exports.listwallet = (req, res) => {
-  komodoRPC
+  require('./ChooseChainController').komodoRPC()
     .listreceivedbyaddress(1, true)
     .then(info => {
       // console.log(info);
@@ -83,21 +84,23 @@ exports.listwallet = (req, res) => {
 }
 
 exports.getPrivateKkey = (req, res) => {
-  komodoRPC.dumpprivkey(req.body.public_key).then(priv => {
-    res.json({
-      data: {
-        private_key: priv
-      }
-    })
-  }).catch(error => {
-    console.log(error);
-    throw new Error(error);
-  });
+  require('./ChooseChainController').komodoRPC()
+    .dumpprivkey(req.body.public_key)
+    .then(priv => {
+      res.json({
+        data: {
+          private_key: priv
+        }
+      })
+    }).catch(error => {
+      console.log(error);
+      throw new Error(error);
+    });
 }
 
 // sendToTx: (req, res) => {
 //   console.log(req.body)
-//   komodoRPC.sendtoaddress(req.body.to, req.body.amount).then(tx => {
+//   require('./ChooseChainController').komodoRPC().sendtoaddress(req.body.to, req.body.amount).then(tx => {
 //     console.log(tx)
 //     res.json({
 //       data: {
@@ -111,31 +114,35 @@ exports.getPrivateKkey = (req, res) => {
 // }
 
 exports.sendFromTx = (req, res) => {
-  komodoRPC.sendfrom(req.body.accountFrom, req.body.to, req.body.amount).then(tx => {
-    console.log(tx)
-    res.json({
-      data: {
-        success: "Success ! Your transaction_id.",
-        txId: tx
-      }
-    })
-  }).catch(error => {
-    console.log(error);
-    throw new Error(error);
-  });
+  require('./ChooseChainController').komodoRPC()
+    .sendfrom(req.body.accountFrom, req.body.to, req.body.amount)
+    .then(tx => {
+      console.log(tx)
+      res.json({
+        data: {
+          success: "Success ! Your transaction_id.",
+          txId: tx
+        }
+      })
+    }).catch(error => {
+      console.log(error);
+      throw new Error(error);
+    });
 }
 
 exports.setAccount = (req, res) => {
-  komodoRPC.setaccount(req.body.address_pub, req.body.account).then(set => {
-    res.json({
-      data: {
-        success: "Success !"
-      }
-    })
-  }).catch(error => {
-    console.log(error);
-    throw new Error(error);
-  });
+  require('./ChooseChainController').komodoRPC()
+    .setaccount(req.body.address_pub, req.body.account)
+    .then(set => {
+      res.json({
+        data: {
+          success: "Success !"
+        }
+      })
+    }).catch(error => {
+      console.log(error);
+      throw new Error(error);
+    });
 }
 
 exports.startPow = (req, res) => {
@@ -147,7 +154,7 @@ exports.startPos = (req, res) => {
 }
 
 exports.miningInfo = (req, res) => {
-  komodoRPC
+  require('./ChooseChainController').komodoRPC()
     .getmininginfo()
     .then(info => {
       // console.log(info)
@@ -165,7 +172,7 @@ exports.stopMining = (req, res) => {
 }
 
 exports.getAddressBalance = (req, res) => {
-  komodoRPC
+  require('./ChooseChainController').komodoRPC()
     .getaddressbalance({ addresses: [req.body.address] })
     .then(bal => {
       console.log(bal)
