@@ -98,21 +98,6 @@ exports.getPrivateKkey = (req, res) => {
     });
 }
 
-// sendToTx: (req, res) => {
-//   console.log(req.body)
-//   require('./ChooseChainController').komodoRPC().sendtoaddress(req.body.to, req.body.amount).then(tx => {
-//     console.log(tx)
-//     res.json({
-//       data: {
-//         success: "Success !"
-//       }
-//     })
-//   }).catch(error => {
-//     console.log(error);
-//     throw new Error(error);
-//   });
-// }
-
 exports.sendFromTx = (req, res) => {
   require('./ChooseChainController').komodoRPC()
     .sendfrom(req.body.accountFrom, req.body.to, req.body.amount)
@@ -145,14 +130,6 @@ exports.setAccount = (req, res) => {
     });
 }
 
-exports.startPow = (req, res) => {
-  console.log('Start mining Pow')
-}
-
-exports.startPos = (req, res) => {
-  console.log('Start mining Pos')
-}
-
 exports.miningInfo = (req, res) => {
   require('./ChooseChainController').komodoRPC()
     .getmininginfo()
@@ -165,10 +142,6 @@ exports.miningInfo = (req, res) => {
       console.log(error);
       throw new Error(error);
     });
-}
-
-exports.stopMining = (req, res) => {
-  console.log('Stop mining')
 }
 
 exports.getAddressBalance = (req, res) => {

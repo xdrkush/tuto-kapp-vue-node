@@ -11,7 +11,7 @@
 ## For the futures
 (comptatible with other chain)
 
-![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/choose.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/choose1.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/morty1.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/morty2.png)
 
@@ -58,6 +58,6 @@ nodemon server.js
 
 ## Donation
   - KMD: RCfrZUwfprGcNAgjyyBLg75aKttNL6mtCB
-  - ARRR: 
+  - ARRR: zs17x4y4m7n2l9anqkscychpfj39p4xrm7fc7w78j8vx843klcsxzyl6dwu70zekn99n5dwcu2tv4p
   - LTC: LNcckBNDJgi6Yy1hgwBWrbp8mqo3mJiVxE
   - BTC: 14PfUy4PE2U3JAKYWoCDaakNZdRme8iW6b

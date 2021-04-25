@@ -29,7 +29,8 @@
         <q-separator vertical />
 
         <q-card-section class="col-6">
-          <p>Wallet Balance: {{ getInfo.balance }} {{ getInfo.name }}</p>
+          <p>Wallet Balance: {{ getTotalBalance.total }} {{ getInfo.name }}</p>
+          <p>Wallet Interest: {{ getTotalBalance.interest }} {{ getInfo.name }}</p>
         </q-card-section>
       </q-card-section>
     </q-card>
@@ -42,13 +43,16 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'GetInfo',
   methods: {
-    ...mapActions('kapp', ['httpGetInfo'])
+    ...mapActions('kapp', ['httpGetInfo']),
+    ...mapActions('zapp', ['httpGetTotalBalance']),
   },
   computed: {
-    ...mapState('kapp', ['getInfo'])
+    ...mapState('kapp', ['getInfo']),
+    ...mapState('zapp', ['getTotalBalance'])
   },
   mounted () {
     this.httpGetInfo()
+    this.httpGetTotalBalance()
   }
 }
 </script>

@@ -26,6 +26,16 @@ const configMORTY = {
   conffile: "/home/hsuk/.komodo/MORTY/MORTY.conf"
 };
 
+// Config MORTY.conf
+const configPIRATE = {
+  rpchost: "localhost", // to put in the .env
+  rpcport: 45453, // to put in the .env
+  rpcuser: "user3988775008", // to put in the .env
+  rpcpassword: "passc9eb245655d555af5b0557679229e7241a203ea48317090cf292c0a86e57f6a069", // to put in the .env
+  datadir: "/home/hsuk/.komodo/PIRATE",
+  name: "morty",
+  conffile: "/home/hsuk/.komodo/PIRATE/PIRATE.conf"
+};
 
 // Default
 config = configKMD
@@ -46,6 +56,10 @@ function chooseFn(choose) {
     if (choose.MORTY === '') {
       console.log('Choose Morty !!')
       config = configMORTY
+    }
+    if (choose.PIRATE === '') {
+      console.log('Choose Pirate !!')
+      config = configPIRATE
     }
   }
   let komodo = new SmartChain(config);

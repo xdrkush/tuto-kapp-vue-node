@@ -5,6 +5,7 @@ const
 
 // Controllers
 const KappController = require('./controllers/KappController'),
+    ZappController = require('./controllers/ZappController'),
     ChooseChainController = require('./controllers/ChooseChainController');
 
 /*
@@ -21,7 +22,7 @@ router.route('/test')
 router.route('/getinfo')
     .get(KappController.getInfo)
 
-// getBlockCount
+// listunspent
 router.route('/listunspent')
     .get(KappController.listUnspent)
 
@@ -41,10 +42,6 @@ router.route('/listwallet')
 router.route('/getprivatekey')
     .post(KappController.getPrivateKkey)
 
-// sendToTx
-// router.route('/sendtotx')
-//     .post(KappController.sendToTx)
-
 // sendFromTx
 router.route('/sendfromtx')
     .post(KappController.sendFromTx)
@@ -53,21 +50,9 @@ router.route('/sendfromtx')
 router.route('/setaccount')
     .post(KappController.setAccount)
 
-// startPow
-router.route('/startpow')
-    .post(KappController.startPow)
-
-// startPos
-router.route('/startpos')
-    .post(KappController.startPos)
-
 // miningInfo
 router.route('/mininginfo')
     .get(KappController.miningInfo)
-
-// stopMining
-router.route('/stopmining')
-    .post(KappController.stopMining)
 
 // getAddressBalance
 router.route('/getaddressbalance')
@@ -76,6 +61,37 @@ router.route('/getaddressbalance')
 // getAddressBalance
 router.route('/choosechain')
     .post(ChooseChainController.choose)
+
+/*
+ * Z Concept
+ * ********* */ 
+
+// Get Total Balance
+router.route('/gettotalbalance')
+    .get(ZappController.getTotalBalance)
+
+// get list wallet Z
+router.route('/zlistaddresses')
+    .get(ZappController.getListZAddress)
+
+// create wallet Z
+router.route('/createwalletz')
+    .get(ZappController.createWalletZ)
+
+// getZAddressBalance
+router.route('/getzaddressbalance')
+    .post(ZappController.getZAddressBalance)
+
+// z_sendMany
+router.route('/zsendmany')
+    .post(ZappController.zSendMany)
+
+// z_getZOperationId
+router.route('/getzopid')
+    .get(ZappController.getZOpId)
+
+router.route('/zexportkey')
+    .post(ZappController.getZPrivateKkey)
 
 /* ************** *
  *  / Router

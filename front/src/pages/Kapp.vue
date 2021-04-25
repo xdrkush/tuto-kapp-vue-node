@@ -22,14 +22,23 @@
       </q-form>
     </div>
 
+    <h3>{{ getInfo.name }}</h3>
+
     <!-- getInfo Component -->
     <getInfo />
 
+    <!-- this modulation is in progress ;) -->
     <!-- Create Wallet Component -->
-    <createWallet />
+    <createWallet v-if="getInfo.name === 'MORTY'"/>
+    <createWallet v-if="getInfo.name === 'KMD'"/>
+    <!-- Create WalletZ Component -->
+    <createWalletZ v-if="getInfo.name === 'PIRATE'" />
 
     <!-- getListWallet -->
-    <listWallet />
+    <listWallet v-if="getInfo.name === 'MORTY'" />
+    <listWallet v-if="getInfo.name === 'KMD'" />
+    <!-- getListWalletZ -->
+    <listWalletZ  v-if="getInfo.name === 'PIRATE'" />
 
     <!-- getMining Info -->
     <mining />
@@ -37,8 +46,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import { getInfo, createWallet, listWallet, mining } from "../components";
+import { mapActions, mapState } from 'vuex'
+import { getInfo, createWallet, createWalletZ, listWallet, mining, listWalletZ } from "../components";
 
 export default {
   name: "PageKapp",
@@ -47,14 +56,16 @@ export default {
       title: "Komodod App",
       chain: null,
       accept: false,
-      options: ["KOMODO", "MORTY"],
+      options: ["KOMODO", "MORTY", "PIRATE"],
     };
   },
   components: {
     createWallet,
+    createWalletZ,
     getInfo,
     listWallet,
     mining,
+    listWalletZ
   },
   methods: {
     onSubmitSetChain () {
@@ -62,6 +73,9 @@ export default {
       this.$router.go(0)
     },
     ...mapActions('kapp', ['httpChooseChain'])
+  },
+  computed: {
+    ...mapState('kapp', ['getInfo'])
   }
 };
 </script>
