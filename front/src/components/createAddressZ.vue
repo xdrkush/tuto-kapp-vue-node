@@ -1,11 +1,11 @@
 <template>
   <div class="q-mt-md">
-    <q-btn color="secondary" glossy label="Create new address Z" @click="newWallet()"/>
-    <q-list bordered separator class="q-mt-md">
+    <q-btn color="accent" text-color="secondary" glossy label="Create new address Z" @click="newWallet()"/>
+    <q-list bordered separator class="q-mt-md text-white">
 
       <q-item clickable v-ripple>
         <q-item-section>
-          <q-item-label overline>Public adress:</q-item-label>
+          <q-item-label>Public adress:</q-item-label>
           <q-item-label>
             <p>{{ walletZCreated.public_key }} </p>
           </q-item-label>
@@ -14,7 +14,7 @@
 
       <q-item clickable v-ripple>
         <q-item-section>
-          <q-item-label overline>Private adress:</q-item-label>
+          <q-item-label>Private adress:</q-item-label>
           <q-item-label>
             <p>{{ walletZCreated.private_key }} </p>
           </q-item-label>

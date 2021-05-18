@@ -1,44 +1,45 @@
 <template>
   <q-page class="text-center q-pa-xl">
-    <h2 class="q-mt-none">{{ title }}</h2>
+    <h2 class="q-mt-none"><strong>{{ title }}</strong></h2>
 
     <!-- Choose Chain -->
     <div class="q-mb-xl">
       <q-form @submit="onSubmitSetChain">
         <q-select
-          standout="bg-primary text-white q-mb-xl"
+          dark
+          class="text-white q-mb-xl"
           v-model="chain"
           :options="options"
           label="Choose Asset-Chain"
         />
         <div class="row">
           <div class="col-6 text-center">
-            <q-toggle v-model="accept" label="I accept the license and terms" />
+            <q-toggle v-model="accept" color='accent' label="I accept the license and terms" />
           </div>
           <div class="col-6">
-            <q-btn label="Submit" type="submit" color="primary" />
+            <q-btn label="Choose" type="submit" text-color="secondary" color="accent" />
           </div>
         </div>
       </q-form>
     </div>
 
-    <h3>{{ getInfo.name }}</h3>
+    <h3><strong><u>{{ getInfo.name }}</u></strong></h3>
 
     <!-- getInfo Component -->
     <getInfo />
 
     <!-- this modulation is in progress ;) -->
-    <!-- Create Wallet Component -->
-    <createWallet v-if="getInfo.name === 'MORTY'"/>
-    <createWallet v-if="getInfo.name === 'KMD'"/>
-    <!-- Create WalletZ Component -->
-    <createWalletZ v-if="getInfo.name === 'PIRATE'" />
+    <!-- Create Address Component -->
+    <createAddress v-if="getInfo.name === 'MORTY'"/>
+    <createAddress v-if="getInfo.name === 'KMD'"/>
+    <!-- Create AddressZ Component -->
+    <createAddressZ v-if="getInfo.name === 'PIRATE'" />
 
-    <!-- getListWallet -->
-    <listWallet v-if="getInfo.name === 'MORTY'" />
-    <listWallet v-if="getInfo.name === 'KMD'" />
-    <!-- getListWalletZ -->
-    <listWalletZ  v-if="getInfo.name === 'PIRATE'" />
+    <!-- getListAddress -->
+    <listAddress v-if="getInfo.name === 'MORTY'" />
+    <listAddress v-if="getInfo.name === 'KMD'" />
+    <!-- getListAddressZ -->
+    <listAddressZ  v-if="getInfo.name === 'PIRATE'" />
 
     <!-- getMining Info -->
     <mining />
@@ -47,7 +48,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import { getInfo, createWallet, createWalletZ, listWallet, mining, listWalletZ } from "../components";
+import { getInfo, createAddress, createAddressZ, listAddress, mining, listAddressZ } from "../components";
 
 export default {
   name: "PageKapp",
@@ -56,16 +57,16 @@ export default {
       title: "Komodod App",
       chain: null,
       accept: false,
-      options: ["KOMODO", "MORTY", "PIRATE"],
+      options: ["KOMODO", "MORTY", "PIRATE", "THC", "MCL"],
     };
   },
   components: {
-    createWallet,
-    createWalletZ,
+    createAddress,
+    createAddressZ,
     getInfo,
-    listWallet,
+    listAddress,
     mining,
-    listWalletZ
+    listAddressZ
   },
   methods: {
     onSubmitSetChain () {

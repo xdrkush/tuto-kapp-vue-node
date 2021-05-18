@@ -1,12 +1,13 @@
 <template>
   <div class="q-mt-md">
     <q-table
-      class="my-sticky-virtscroll-table"
+      class="my-sticky-virtscroll-table bg-secondary text-white"
       virtual-scroll
+      dark
       :rows-per-page-options="[0]"
       :virtual-scroll-sticky-size-start="48"
       row-key="address"
-      title="List Wallet (amount is not balance)"
+      title="List Address (amount is not balance)"
       :data="this.listWallet"
       :columns="columns"
     >
@@ -35,7 +36,8 @@
           <q-td auto-width>
             <q-btn
               size="sm"
-              color="primary"
+              text-color='secondary'
+              color="accent"
               round
               dense
               @click="openModal(props.row)"
@@ -48,7 +50,7 @@
 
     <q-dialog v-model="medium" persistent>
       <q-card
-        class="text-center"
+        class="text-center bg-secondary text-white"
         style="width: 700px; max-width: 80vw; min-height: 65vh"
       >
         <q-card-section class="row bg-primary text-white">
@@ -74,9 +76,9 @@
 
         <q-separator />
 
-        <q-tab-panels v-model="tab" animated>
-          <q-tab-panel name="info" class="q-pa-none">
-            <q-card-section class="row bg-primary text-white q-pt-xs q-mt-xs">
+        <q-tab-panels v-model="tab" animated class="bg-secondary">
+          <q-tab-panel name="info" class="q-pa-none bg-secondary">
+            <q-card-section class="row bg-primary text-white q-pt-xs q-pt-xs">
               <q-item
                 clickable
                 tag="a"
@@ -103,6 +105,7 @@
               <q-form @submit="onSubmitSetAccount" @reset="onReset">
                 <q-input
                   filled
+                  dark
                   v-model="setAccount.account"
                   label="Edit name of account:"
                   lazy-rules
@@ -118,11 +121,11 @@
                     />
                   </div>
                   <div class="col-6">
-                    <q-btn label="Submit" type="submit" color="primary" />
+                    <q-btn label="Submit" type="submit" text-color='secondary' color="accent"/>
                     <q-btn
                       label="Reset"
                       type="reset"
-                      color="primary"
+                      text-color='accent'
                       flat
                       class="q-ml-sm"
                     />
@@ -153,11 +156,12 @@
             </q-card-section>
           </q-tab-panel>
 
-          <q-tab-panel name="tx" class="border-bottom">
+          <q-tab-panel name="tx" class="border-bottom bg-secondary">
             <q-card-section class="q-pt-none">
               <q-form @submit="onSubmitTx" @reset="onReset" class="q-gutter-md">
                 <q-input
                   filled
+                  dark
                   disable
                   v-model="modal.account"
                   label="From:"
@@ -168,6 +172,7 @@
                 />
                 <q-input
                   filled
+                  dark
                   v-model="tx.to"
                   label="To:"
                   lazy-rules
@@ -177,6 +182,7 @@
                 />
                 <q-input
                   filled
+                  dark
                   type="number"
                   v-model="tx.amount"
                   label="Amount:"
@@ -190,17 +196,18 @@
                 />
                 <q-toggle
                   v-model="accept"
+                  color="accent"
                   label="I accept the license and terms"
                 />
                 <div>
-                  <q-btn label="Submit" type="submit" color="primary" />
-                  <q-btn
-                    label="Reset"
-                    type="reset"
-                    color="primary"
-                    flat
-                    class="q-ml-sm"
-                  />
+                    <q-btn label="Submit" type="submit" text-color='secondary' color="accent"/>
+                    <q-btn
+                      label="Reset"
+                      type="reset"
+                      text-color='accent'
+                      flat
+                      class="q-ml-sm"
+                    />
                 </div>
               </q-form>
             </q-card-section>
@@ -212,23 +219,25 @@
             </q-card-section>
           </q-tab-panel>
 
-          <q-tab-panel name="private">
+          <q-tab-panel name="private" class="bg-secondary">
             <q-card-section class="q-pt-none">
               <q-btn
                 rounded
+                color='accent'
+                text-color='secondary'
                 class="text-primary"
                 label="Get Private Key"
                 @click="getPrivateKey(modal.address_pub)"
               />
-              <p class="text-primary q-mt-md">
+              <p class="text-white q-mt-md">
                 <strong>{{ privateKeyRecieve.private_key }}</strong>
               </p>
             </q-card-section>
           </q-tab-panel>
         </q-tab-panels>
 
-        <q-card-actions align="center" class="bg-white text-teal">
-          <q-btn flat label="Close" v-close-popup @click="closeModal()" />
+        <q-card-actions align="center" class="bg-secondary">
+          <q-btn flat label="Close" class="bg-accent" color="secondary" v-close-popup @click="closeModal()" />
         </q-card-actions>
       </q-card>
     </q-dialog>

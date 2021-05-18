@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-card class="my-card" flat bordered>
+    <q-card class="my-card bg-secondary" dark flat bordered>
       <q-item>
         <q-item-section avatar>
           <q-avatar>
@@ -10,7 +10,7 @@
 
         <q-item-section>
           <q-item-label>Blockchain {{ getInfo.name }}</q-item-label>
-          <q-item-label caption>
+          <q-item-label >
             <p>Block count: {{ getInfo.blocks }} / {{ getInfo.longestchain }}</p>
           </q-item-label>
         </q-item-section>

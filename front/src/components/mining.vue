@@ -1,7 +1,7 @@
 <template>
   <div class="q-mt-md">
     <h6 class="texh-h6"><u>Mining:</u></h6>
-    <q-card class="my-card" flat bordered>
+    <q-card class="my-card bg-secondary" flat bordered dark>
       <q-item>
         <q-item-section avatar>
           <q-avatar>
@@ -10,8 +10,8 @@
         </q-item-section>
 
         <q-item-section>
-          <q-item-label>Mining Info</q-item-label>
-          <q-item-label caption>
+          <q-item-label><strong>Mining Info</strong></q-item-label>
+          <q-item-label>
             <p>Chain: {{ miningInfo.chain }} / Blocks: {{ miningInfo.blocks }} / Difficulty: {{ miningInfo.difficulty }} 
                / Current_Block_size: {{ miningInfo.currentblocksize }} (number_tx: {{ miningInfo.currentblocktx }})</p>
           </q-item-label>

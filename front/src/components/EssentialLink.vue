@@ -8,12 +8,12 @@
       v-if="icon"
       avatar
     >
-      <q-icon :name="icon" />
+      <q-icon class="text-accent" :name="icon" />
     </q-item-section>
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>
+      <q-item-label>
         {{ caption }}
       </q-item-label>
     </q-item-section>

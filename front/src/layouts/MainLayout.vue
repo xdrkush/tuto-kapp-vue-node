@@ -23,16 +23,17 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-grey-1"
+      content-class="bg-secondary text-white"
     >
       <q-list>
         <q-item-label
           header
-          class="text-grey-8"
+          class="text-white"
         >
           Essential Links
         </q-item-label>
         <EssentialLink
+          class="text-white"
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
@@ -40,7 +41,7 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container class="bg-dark text-white">
       <router-view />
     </q-page-container>
   </q-layout>

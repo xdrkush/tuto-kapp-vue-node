@@ -1,15 +1,16 @@
 # KApp
 
-## I m candidate to Notary Node Season 5 <3
-  - My proposal: https://github.com/KomodoPlatform/NotaryNodes/tree/master/season5/candidates/drkush
-
+## Screen
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/home.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/info1.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/tx.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/private.png)
 
+## New theme
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/newthemes.png)
+
 ## For the futures
-(comptatible with other chain)
+(comptatible with other chain)(in progress)
 
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/choose1.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/morty1.png)

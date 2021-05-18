@@ -1,15 +1,15 @@
-import createWallet from './createWallet'
-import createWalletZ from './createWalletZ'
+import createAddress from './createAddress'
+import createAddressZ from './createAddressZ'
 import getInfo from './getInfo'
-import listWallet from './listWallet'
-import listWalletZ from './listWalletZ'
+import listAddress from './listAddress'
+import listAddressZ from './listAddressZ'
 import mining from './mining'
 
 export {
-    createWallet,
-    createWalletZ,
+    createAddress,
+    createAddressZ,
     getInfo,
-    listWallet,
-    listWalletZ,
+    listAddress,
+    listAddressZ,
     mining
 }
