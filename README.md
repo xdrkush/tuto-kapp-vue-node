@@ -16,6 +16,10 @@
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/morty1.png)
 ![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/morty2.png)
 
+## Run Chain (in progress)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/runChain.png)
+![](https://github.com/xdrkush/tuto-kapp-vue-node/blob/main/inProgress.png)
+
 This project is create with:
   - Quasar (VueJS, PWA, ...)
   - node-komodo-rpc By Gcharang
@@ -37,6 +41,8 @@ This app is utils for administration komodod in local (only) !! (graphic komodo-
 
 First terminal:
 (config komodo.conf -> run komodo)
+add: addressindex=1
+https://docs.komodoplatform.com/basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addressindex
 ```
 komodod
 ```

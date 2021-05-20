@@ -58,6 +58,12 @@ const linksData = [
     link: ''
   },
   {
+    title: 'Admin',
+    caption: 'Run chain',
+    icon: 'security',
+    link: '#/admin'
+  },
+  {
     title: 'KApp',
     caption: 'Komodo App',
     icon: 'security',

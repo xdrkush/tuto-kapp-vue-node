@@ -1,44 +1,11 @@
 // Import Module
 const SmartChain = require("node-komodo-rpc"); // Module By Gcharang
+const connectChain = require('../../config/chooseChain.json');
+const runChain = require('../../config/runChain.json');
+const { exec } = require("child_process");
 
 // Config 
 let config = {};
-
-// Config komodo.conf
-const configKMD = {
-  rpchost: "localhost", // to put in the .env
-  rpcport: 7771, // to put in the .env
-  rpcuser: "hsukrd", // to put in the .env
-  rpcpassword: "mon$uperMotDePa$$e", // to put in the .env
-  datadir: "/home/hsuk/.komodo",
-  name: "komodo",
-  conffile: "/home/hsuk/.komodo/komodo.conf"
-};
-
-// Config MORTY.conf
-const configMORTY = {
-  rpchost: "localhost", // to put in the .env
-  rpcport: 16347, // to put in the .env
-  rpcuser: "user980880022", // to put in the .env
-  rpcpassword: "pass8941e3b8e53a0603a22897240ccd540a90bc522b2eddd174759bed0afb195e69cf", // to put in the .env
-  datadir: "/home/hsuk/.komodo/MORTY",
-  name: "morty",
-  conffile: "/home/hsuk/.komodo/MORTY/MORTY.conf"
-};
-
-// Config MORTY.conf
-const configPIRATE = {
-  rpchost: "localhost", // to put in the .env
-  rpcport: 45453, // to put in the .env
-  rpcuser: "user3988775008", // to put in the .env
-  rpcpassword: "passc9eb245655d555af5b0557679229e7241a203ea48317090cf292c0a86e57f6a069", // to put in the .env
-  datadir: "/home/hsuk/.komodo/PIRATE",
-  name: "morty",
-  conffile: "/home/hsuk/.komodo/PIRATE/PIRATE.conf"
-};
-
-// Default
-config = configKMD
 
 // Choose chain
 exports.choose = (req, res) => {
@@ -46,21 +13,46 @@ exports.choose = (req, res) => {
   res.json({ success: 'Change chain !' })
 }
 
+// List chains for the front (../../config/chooseChain.json)
+// And Status (run or stop) (in progress)
+exports.chainAvailable = (req, res) => {
+  let chainAv = []
+  connectChain.forEach(chain => chainAv.push(chain.name))
+  res.status(200).json({ message: 'Chain is available !', chain: chainAv })
+}
+
+// Run chain (../../config/runChain.json)
+exports.runChain = (req, res) => {
+  console.log('run chain: ', req.body)
+  runChain.forEach(chain => {
+    if (req.body.choose === chain.name) {
+      exec(chain.command, (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+    });
+    } else return
+  })
+  res.end()
+}
+
+exports.stopChain = (req, res) => {
+  console.log('Stop Chain')
+}
+
 // Edit chain
 function chooseFn(choose) {
   if (choose) {
-    if (choose.KOMODO === '') {
-      console.log('Choose Komodo !!')
-      config = configKMD
-    }
-    if (choose.MORTY === '') {
-      console.log('Choose Morty !!')
-      config = configMORTY
-    }
-    if (choose.PIRATE === '') {
-      console.log('Choose Pirate !!')
-      config = configPIRATE
-    }
+    connectChain.forEach(chain => {
+      if (choose.choose === chain.name) config = chain
+      else return
+    })
   }
   let komodo = new SmartChain(config);
   return komodo.rpc();

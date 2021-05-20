@@ -9,7 +9,7 @@
           dark
           class="text-white q-mb-xl"
           v-model="chain"
-          :options="options"
+          :options="getChainAvailable"
           label="Choose Asset-Chain"
         />
         <div class="row">
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 import { getInfo, createAddress, createAddressZ, listAddress, mining, listAddressZ } from "../components";
 
 export default {
@@ -56,8 +56,7 @@ export default {
     return {
       title: "Komodod App",
       chain: null,
-      accept: false,
-      options: ["KOMODO", "MORTY", "PIRATE", "THC", "MCL"],
+      accept: false
     };
   },
   components: {
@@ -70,13 +69,15 @@ export default {
   },
   methods: {
     onSubmitSetChain () {
+      this.chain = { choose: this.chain }
       this.httpChooseChain(this.chain)
       this.$router.go(0)
     },
     ...mapActions('kapp', ['httpChooseChain'])
   },
   computed: {
-    ...mapState('kapp', ['getInfo'])
+    ...mapState('kapp', ['getInfo']),
+    ...mapGetters('all', ['getChainAvailable'])
   }
 };
 </script>

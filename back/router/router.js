@@ -18,6 +18,14 @@ router.route('/test')
         res.json({ msg: "backend works" })
     })
 
+// Chain Available
+router.route('/chainavailable')
+    .get(ChooseChainController.chainAvailable)
+
+// Chain Available
+router.route('/runchain')
+    .post(ChooseChainController.runChain)
+
 // getInfo
 router.route('/getinfo')
     .get(KappController.getInfo)
@@ -64,7 +72,7 @@ router.route('/choosechain')
 
 /*
  * Z Concept
- * ********* */ 
+ * ********* */
 
 // Get Total Balance
 router.route('/gettotalbalance')

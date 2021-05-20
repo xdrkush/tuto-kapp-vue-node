@@ -1,0 +1,14 @@
+[
+    {
+        "name": "KOMODO",
+        "command": "komodod"
+    },
+    {
+        "name": "PIRATE",
+        "command": "komodod -ac_name=PIRATE -ac_supply=0 -ac_reward=25600000000 -ac_halving=77777 -ac_private=1 -addnode=88.99.212.81"
+    },
+    {
+        "name": "AXO",
+        "command": "komodod -ac_name=AXO -ac_supply=200000000 -ac_ccactivate=130000 -addnode=95.213.238.98"
+    }
+]

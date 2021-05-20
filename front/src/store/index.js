@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import kapp from './store-kapp'
 import zapp from './store-zapp'
+import all from './store-all'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,7 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      kapp, zapp
+      kapp, zapp, all
     },
 
     // enable strict mode (adds overhead!)

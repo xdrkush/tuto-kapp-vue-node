@@ -1,0 +1,29 @@
+[
+    {
+        "rpchost": "localhost",
+        "rpcport": 7771,
+        "rpcuser": "hsukrd",
+        "rpcpassword": "mon$uperMotDePa$$e",
+        "datadir": "/home/hsuk/.komodo",
+        "name": "KOMODO",
+        "conffile": "/home/hsuk/.komodo/komodo.conf"
+      },
+      {
+        "rpchost": "localhost",
+        "rpcport": 16347,
+        "rpcuser": "user980880022",
+        "rpcpassword": "pass8941e3b8e53a0603a22897240ccd540a90bc522b2eddd174759bed0afb195e69cf",
+        "datadir": "/home/hsuk/.komodo/MORTY",
+        "name": "MORTY",
+        "conffile": "/home/hsuk/.komodo/MORTY/MORTY.conf"
+      },
+      {
+        "rpchost": "localhost",
+        "rpcport": 45453,
+        "rpcuser": "user3988775008",
+        "rpcpassword": "passc9eb245655d555af5b0557679229e7241a203ea48317090cf292c0a86e57f6a069",
+        "datadir": "/home/hsuk/.komodo/PIRATE",
+        "name": "PIRATE",
+        "conffile": "/home/hsuk/.komodo/PIRATE/PIRATE.conf"
+      }
+]
